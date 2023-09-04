@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f27ef1c8c0.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Barra de navegação -->
+    <nav class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 p-2 flex justify-between items-center">
+        <!-- Link do perfil -->
+        <a href="/perfil" class="text-gray-600 mx-4">
+            <i class="fas fa-user"></i>
+        </a>
+        <!-- Histórico de check-ins -->
+        <a href="/gerar-relatorios" class="text-gray-600 mx-4">
+            <i class="fas fa-history"></i>
+        </a>
+        <!-- Botão central -->
+        <a href="/registro-presenca" class="bg-blue-500 text-white p-4 rounded-full shadow-md hover:bg-blue-600">
+            <i class="fas fa-check-circle text-2xl"></i>
+        </a>
+        <!-- Grade horário -->
+        <a href="/grade-horario" class="text-gray-600 mx-4">
+            <i class="fas fa-calendar-alt"></i>
+        </a>
+        <!-- Logout -->
+        <a href="/logout" class="text-gray-600 mx-4">
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
+    </nav>
+
+    <!-- Conteúdo da dashboard -->
+    <div class="container mx-auto p-4 mt-16">
+        <!-- Foto de perfil -->
+        <img src="/caminho-da-imagem.jpg" alt="Foto de Perfil" class="w-16 h-16 rounded-full mx-auto mb-4">
+        <!-- Mensagem de boas-vindas -->
+        <h1 class="text-2xl text-center font-semibold mb-2">Bem-vindo, !Nome do Professor!</h1>
+        <!-- Informações gerais sobre a presença -->
+        <div class="bg-white p-4 shadow-md rounded-lg">
+            <p class="text-lg">Informações sobre sua presença:</p>
+            <p>Percentual de Frequência: 85%</p>
+            <p>Total de Check-ins: 123</p>
+            <p>Últimos 10 Check-ins:</p>
+            <ul>
+                <li>Data 1</li>
+                <li>Data 2</li>
+                <li>Data 3</li>
+                <!-- Adicione os próximos check-ins aqui -->
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

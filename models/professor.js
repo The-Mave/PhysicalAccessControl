@@ -21,4 +21,4 @@ const Professor = database.define('professor', {
     }
 })
 
-module.exports = Professor;
+export default Professor;

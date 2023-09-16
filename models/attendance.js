@@ -26,4 +26,4 @@ const Attendance = database.define('attendance', {
 Attendance.belongsTo(Professor, { foreignKey: 'drt_professor' });
 Attendance.belongsTo(Subject, { foreignKey: 'id_subject' });
 
-module.exports = Attendance;
+export default Attendance;

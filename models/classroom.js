@@ -21,4 +21,4 @@ const Classroom = database.define('classroom', {
     }
 })
 
-module.exports = Classroom;
+export default Classroom;

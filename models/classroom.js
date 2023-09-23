@@ -1,6 +1,7 @@
 import Sequelize from 'sequelize'
+import db from '../config/dbConnect.js'
 
-const Classroom = database.define('classroom', {
+const Classroom = db.define('classroom', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,

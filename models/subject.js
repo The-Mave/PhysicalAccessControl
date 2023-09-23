@@ -1,8 +1,9 @@
 import Sequelize from 'sequelize'
+import db from '../config/dbConnect.js'
 import Professor from "./professor.js"
 import Classroom from "./classroom.js"
 
-const Subject = database.define('subject', {
+const Subject = db.define('subject', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -23,7 +24,7 @@ const Subject = database.define('subject', {
     }
 })
 
-Attendance.belongsTo(Professor, { foreignKey: 'drt_professor' });
-Attendance.belongsTo(Classroom, { foreignKey: 'id_classroom' });
+Subject.belongsTo(Professor, { foreignKey: 'drt_professor' });
+Subject.belongsTo(Classroom, { foreignKey: 'id_classroom' });
 
 export default Subject;

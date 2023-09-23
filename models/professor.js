@@ -1,6 +1,7 @@
-import Sequelize from 'sequelize'
+import Sequelize from "sequelize"
+import db from '../config/dbConnect.js'
 
-const Professor = database.define('professor', {
+const Professor = db.define('professor', {
     drt: {
         type: Sequelize.INTEGER,
         autoIncrement: false,

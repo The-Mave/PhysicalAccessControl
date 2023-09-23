@@ -1,8 +1,9 @@
 import Sequelize from 'sequelize'
+import db from '../config/dbConnect.js'
 import Professor from "./professor.js"
 import Subject from "./subject.js"
 
-const Attendance = database.define('attendance', {
+const Attendance = db.define('attendance', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,

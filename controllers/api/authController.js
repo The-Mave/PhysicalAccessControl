@@ -3,6 +3,12 @@ import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
 import { request } from "express";
 
+// BANCO DE DADOS (QUASE)
+const usuarios = [
+  { id: 1, username: '123456', password: 'pass' }
+];
+
+
 const jwt = jsonwebtoken
 const User = usuarios
 

@@ -16,12 +16,12 @@ const secret = 'palavracabalistica'
 
 const login = (req,res) => {
   console.log("Render de index funcionou!")
-  res.render("home/login");
+  res.render("login");
 };
 
 const registrar = (req,res) => {
-  console.log("registrar")
-  console.log("Render de index funcionou!")
+  console.log("register")
+  console.log("Index render worked!")
   res.render("home/signup");
 };
 
@@ -40,7 +40,7 @@ const perfilUser = async (req, res) => {
 
   if (!user) {
     console.log('\x1b[41m\x1b[1m', '[X] Autenticação NAO validada para rota privada' ,'\x1b[0m');
-    return res.status(404).json({ msg: "Usuário não encontrado!" });
+    return res.status(404).json({ msg: "User not found!" });
 
   }
 

@@ -1,8 +1,13 @@
 import express from "express";
 import db from "./config/dbConnect.js"
 import routes from "./routes/index.js"
+import path from "path"
+import { fileURLToPath } from 'url'
 
 const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename)
 
 app.set("port", process.env.PORT || 3000);
 
@@ -14,11 +19,12 @@ app.listen(app.get("port"),function(){
 });
 
 
-db.on("error", console.log.bind(console, "Erro de conexão"));
-db.once("open", () => {
-  console.log("Conexão com o banco feita com sucesso");
-});
-
+try {
+  await db.authenticate();
+  console.log('Connection has been established successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
 
 routes(app);
 

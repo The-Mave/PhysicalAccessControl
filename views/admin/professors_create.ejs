@@ -1,0 +1,42 @@
+<%- include('../_partial/_header.ejs') %>
+<%- include('../_partial/_navbar_admin.ejs') %>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Adicionar Professor</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+                <button type="button" class="btn btn-outline-secondary" onClick="history.go(-1)">Cancel</button>
+            </div>
+            </div>
+        </div> 
+        <form method="post" action="/professors/">
+            <div class="mb-3">
+              <label for="drt" class="form-label">DRT</label>
+              <input type="text" class="form-control" id="drt" name="drt">
+
+              <div id="dica_nome" class="form-text">Insira o DRT do Professor aqui.</div>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="name" name="name">
+  
+                <div id="dica_nome" class="form-text">Insira o nome do Professor aqui.</div>
+            </div>
+            <div class="mb-3">
+                <label for="login" class="form-label">Login</label>
+                <input type="text" class="form-control" id="login" name="login">
+  
+                <div id="dica_nome" class="form-text">Insira o e-mail do Professor aqui.</div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Senha</label>
+                <input type="text" class="form-control" id="password" name="password">
+  
+                <div id="dica_nome" class="form-text">Insira a senha do Professor aqui.</div>
+            </div>
+            <button type="submit" class="btn btn-outline-success">Adicionar</button>
+        </form>
+        </main>
+    </div>
+    </div>
+  
+<%- include('../_partial/_footer_admin.ejs') %>

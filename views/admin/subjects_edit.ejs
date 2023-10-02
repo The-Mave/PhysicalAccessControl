@@ -1,0 +1,49 @@
+<%- include('../_partial/_header.ejs') %>
+<%- include('../_partial/_navbar_admin.ejs') %>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Editor de Disciplinas</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+
+                <form method="post" action="/subjects/<%= subject.id %>?_method=DELETE">
+                    <button type="submit" class="btn btn-outline-danger">Apagar Disciplina</button>
+                </form>
+               <button type="button" class="btn btn-outline-secondary" onClick="history.go(-1)">Cancelar</button>
+
+            </div>
+            </div>
+        </div> 
+            <form method="post" action="/subjects/<%= subject.id %>?_method=PUT">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Nome da Disciplina</label>
+                  <input type="text" class="form-control" id="name" name="name" value="<%= subject.name %>">
+                  <div id="dica_nome" class="form-text">Insira o nome da disciplina.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="dayOfWeek" class="form-label">Dia da Semana</label>
+                    <input type="text" class="form-control" id="dayOfWeek" name="dayOfWeek" value="<%= subject.dayOfWeek %>">
+                    <div id="dica_url" class="form-text">Insira o dia da semana (1 a 7).</div>
+                </div>
+                <div class="mb-3">
+                    <label for="time" class="form-label">Hora</label>
+                    <input type="text" class="form-control" id="time" name="time" value="<%= subject.time %>">
+                    <div id="dica_url" class="form-text">Insira o horário de início da disciplina.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="drt_professor" class="form-label">Professor</label>
+                    <input type="text" class="form-control" id="drt_professor" name="drt_professor" value="<%= subject.drt_professor %>">
+                    <div id="dica_url" class="form-text">Insira o DRT do professor que ministra a disciplina.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="id_classroom">Sala de Aula</label>
+                    <input type="text" class="form-control" id="id_classroom" name="id_classroom" value="<%= subject.id_classroom %>" />
+                    <div id="dica_url" class="form-text">Insira o ID da Sala de aula.</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+        </main>
+    </div>
+    </div>
+
+
+<%- include('../_partial/_footer_admin.ejs') %>

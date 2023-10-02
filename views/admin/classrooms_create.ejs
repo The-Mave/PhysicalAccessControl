@@ -1,0 +1,41 @@
+<%- include('../_partial/_header.ejs') %>
+<%- include('../_partial/_navbar_admin.ejs') %>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Inserir Sala de Aula</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+                <button type="button" class="btn btn-outline-secondary" onClick="history.go(-1)">Cancelar</button>
+            </div>
+            </div>
+        </div> 
+            <form method="post" action="/classrooms/">
+                <div class="mb-3">
+                  <label for="number" class="form-label">Número da Sala de aula</label>
+
+                  <input type="text" class="form-control" id="number" name="number">
+
+                  <div id="dica_nome" class="form-text">Insira o número da sala de aula</div>
+                </div>
+                <div class="mb-3">
+                    <label for="building" class="form-label">Prédio</label>
+
+                    <input type="text" class="form-control" id="building" name="building">
+
+                    <div id="dica_sobrenome" class="form-text">Insira o número do prédio</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="qrcode" class="form-label">QR Code</label>
+
+                    <input type="text" class="form-control" id="qrcode" name="qrcode">
+
+                    <div id="dica_email" class="form-text">Insira o código (provisório)</div>
+                </div>
+                <button type="submit" class="btn btn-outline-success">Criar</button>
+            </form>
+        </main>
+    </div>
+    </div>
+
+
+<%- include('../_partial/_footer_admin.ejs') %>

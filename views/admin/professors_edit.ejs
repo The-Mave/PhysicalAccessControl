@@ -1,0 +1,48 @@
+<%- include('../_partial/_header.ejs') %>
+<%- include('../_partial/_navbar_admin.ejs') %>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Editor de Professores</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+
+                <form method="post" action="/professors/<%= professor.drt %>?_method=DELETE">
+                    <button type="submit" class="btn btn-outline-secondary">Apagar Professor</button>
+                </form>
+                <button type="button" class="btn btn-outline-secondary" onClick="history.go(-1)">Cancelar</button>
+
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+            </button>
+            </div>
+        </div> 
+        <form method="post" action="/professors/<%= professor.drt %>?_method=PUT">
+            <div class="mb-3">
+              <label for="nome" class="form-label">DRT do Professor</label>
+              <input type="text" class="form-control" id="drt" name="drt" value="<%= professor.drt %>">
+              <div id="dica_nome" class="form-text">Insira o DRT do professor aqui.</div>
+            </div>
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome do Professor</label>
+                <input type="text" class="form-control" id="name" name="name" value="<%= professor.name %>">
+                <div id="dica_nome" class="form-text">Insira o nome do professor aqui.</div>
+            </div>
+            <div class="mb-3">
+                <label for="nome" class="form-label">Login do Professor</label>
+                <input type="text" class="form-control" id="nome" name="name" value="<%= professor.login %>">
+                <div id="dica_nome" class="form-text">Insira o e-mail do professor aqui.</div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Senha do Professor</label>
+                <input type="text" class="form-control" id="password" name="password" value="<%= professor.password %>">
+                <div id="dica_nome" class="form-text">Insira a senha do professor aqui.</div>
+            </div>  
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        </main>
+    </div>
+    </div>
+
+
+<%- include('../_partial/_footer_admin.ejs') %>

@@ -1,0 +1,89 @@
+<body id='body_main'class="d-flex flex-column min-vh-100">
+    <header>
+        <!-- INICIO NAVBAR HEADER -->
+        <nav class="navbar navbar-dark bg-dark  fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div>
+                    <button class="navbar-toggler hamb_tool" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <form class="d-flex search_tool">
+                        <input class="form-control bg-dark me-2 text-light" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success " type="submit">Procurar</button>
+                    </form>
+                </div>
+                <!-- INICIO DE FERRAMENTA DE BUSCA  -->
+                
+                <img id="logo" src="/img/logo.png" alt="">
+
+                <% if(!!isAuth){ %>
+                    
+                <form method="get" action="/logout">
+                    <button class="btn btn-outline-success " type="submit">Logout</button>
+                </form>
+
+                <% } else { %>
+            
+                <form method="get" action="/login">
+                    <button class="btn btn-outline-success " type="submit">Login</button>
+                </form>
+
+                <% } %>
+                
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header bg-dark">
+                        <h5 class="offcanvas-title white_label" id="offcanvasNavbarLabel">Procurar jogos</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body bg-dark ">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
+                            
+                            <!-- FIM DE FERRAMENTA DE BUSCA  -->
+                            
+                            <!-- INICIO CATEGORIAS DE JOGOS  -->
+
+                            <!-- TODO ISSO DEVE SER UMA LISTA VINDO DO BANCO -->
+                            <li class="nav-item">
+                            <a class="nav-link" href="#">Ação</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="#">Aventura</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">RPG</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">MMO</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Corrida</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">ONLINE</a>
+                            </li>
+                            <!-- FIM CATEGORIAS DE JOGOS  -->
+
+                            <!-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown Menu
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+                                <li><a class="dropdown-item" href="#">teste</a></li>
+                                <li><a class="dropdown-item" href="#">teste</a></li>
+                                <li>
+                                <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">teste</a></li>
+                            </ul>
+                            </li> -->
+                        </ul>
+                    
+                    </div>
+              </div>
+            </div>
+            <!-- FIM NAVBAR HEADER -->
+          </nav>
+    </header>
+            <!-- ISSO É UM PARTIAL VIEW, SOMENTE O HEADER APARECE AQUI, NAO CONTINUE O CODIGO A PARTIR DAQI! -->
+<div class="container bg_color">

@@ -2,7 +2,6 @@ import professors from "../../models/professor.js";
 
 const readProfessors = (req, res) => {
   professors.find()
-  .populate('subjects')
   .exec((err, professors) => {
     res.status(200).json(professors);
   });
@@ -12,7 +11,6 @@ const readProfessorById = (req, res) => {
   const id = req.params.id;
 
   professors.findById(id)
-  .populate('subjects')
   .exec((err, professors) => {
     if (err) {
       res
@@ -43,16 +41,26 @@ const createProfessor = (req, res) => {
 };
 
 const updateProfessor = (req, res) => {
-  const id = req.params.id;
-  req.body.administrador = Boolean(req.body.administrador);
-
-  professors.findByIdAndUpdate(id, { $set: req.body }, (err) => {
+  const drt = req.params.drt;
+/*
+  professors.findByIdAndUpdate(drt, { $set: req.body }, (err) => {
     if (!err) {
       res.redirect("/admin/professors");
     } else {
       res.status(500).send({ message: err.message });
     }
-  });
+  });*/
+
+  professors.find({ where: { drt: drt } })
+  .on('success', function (professor) {
+    // Check if record exists in db
+    if (professor) {
+      professor.update({ $set: req.body })
+      .success(function () {})
+      res.redirect("/admin/professors")
+    }
+  })
+
 };
 
 const deleteProfessor = (req, res) => {

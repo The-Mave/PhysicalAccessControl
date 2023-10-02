@@ -4,14 +4,31 @@ import professors from "../../models/professor.js";
 import subjects from "../../models/subject.js";
 
 const dashboard = (req,res) => {
-  res.render("admin/index");
-};
+  attendances.findAll()
+  .then((result1) => {
+    classrooms.findAll()
+    .then((result2) => {
+      professors.findAll()
+      
+      .then((result3) => {
+        subjects.findAll()
+        .then((result4) => {
+          res.render("admin/index", {
+            attendances: result1,
+            classrooms: result2,
+            professors: result3,
+            subjects: result4
+            });
+          });
+        });
+      });
+    });
+  };
 
 // READ
 
 const adminGetAttendances = (req, res) => {
-  attendances.find()
-  .populate('professor') //Não tenho certeza se funciona o populate no banco de dados relacional. Precisa testar
+  attendances.findAll()
   .then((result) => {
     res.render("admin/attendances", {
       attendances: result,
@@ -20,7 +37,7 @@ const adminGetAttendances = (req, res) => {
 };
 
 const adminGetClassrooms = (req, res) => {
-    categorias.find()
+    classrooms.findAll()
     .then((result) => {
       res.render("admin/classrooms", {
         classrooms: result,
@@ -29,8 +46,7 @@ const adminGetClassrooms = (req, res) => {
   };
 
 const adminGetProfessors = (req, res) => {
-  usuarios.find()
-  .populate('subject')
+  professors.findAll()
   .then((result) => {
     res.render("admin/professors", {
       professors: result,
@@ -39,8 +55,7 @@ const adminGetProfessors = (req, res) => {
 };
 
 const adminGetSubjects = (req, res) => {
-  usuarios.find()
-  .populate('professor', 'classroom')
+  subjects.findAll()
   .then((result) => {
     res.render("admin/subjects", {
       subjects: result,
@@ -53,7 +68,7 @@ const adminGetSubjects = (req, res) => {
 const adminUpdateClassrooms = (req,res) => {
     const id = req.params.id;
 
-    classrooms.findById(id).then((result) => {
+    classrooms.findByPk(id).then((result) => {
         res.render("admin/classrooms_edit", {
           classroom: result
         });
@@ -61,9 +76,9 @@ const adminUpdateClassrooms = (req,res) => {
 }
 
 const adminUpdateProfessors = (req,res) => {
-  const id = req.params.drt;
+  const drt = req.params.id;
 
-  professors.findById(id).then((result) => {
+  professors.findByPk(drt).then((result) => {
       res.render("admin/professors_edit", {
         professor: result
       });
@@ -73,7 +88,7 @@ const adminUpdateProfessors = (req,res) => {
 const adminUpdateSubjects = (req,res) => {
   const id = req.params.id;
 
-  subjects.findById(id).then((result) => {
+  subjects.findByPk(id).then((result) => {
       res.render("admin/subjects_edit", {
         subject: result
       });
@@ -91,8 +106,8 @@ const adminCreateProfessors = (req,res) => {
 }
 
 const adminCreateSubjects = (req,res) => {
-  classrooms.find().then((result1) => {
-    professors.find().then((result2) => {
+  classrooms.findAll().then((result1) => {
+    professors.findAll().then((result2) => {
       res.render("admin/subjects_create", {
         classrooms: result1,
         professors: result2

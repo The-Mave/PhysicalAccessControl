@@ -22,22 +22,52 @@
                 </div>
                 <div class="mb-3">
                     <label for="dayOfWeek" class="form-label">Dia da Semana</label>
-                    <input type="text" class="form-control" id="dayOfWeek" name="dayOfWeek" value="<%= subject.dayOfWeek %>">
+                    
+                    <select class="form-control dropdown" name="dayOfWeek" id="dayOfWeek">
+                        <option <%= subject.dayOfWeek == 1 ? 'selected' : ""%> value="1">Domingo</option>
+                        <option <%= subject.dayOfWeek == 2 ? 'selected' : ""%> value="2">Segunda-Feira</option>
+                        <option <%= subject.dayOfWeek == 3 ? 'selected' : ""%> value="3">Terça-Feira</option>
+                        <option <%= subject.dayOfWeek == 4 ? 'selected' : ""%> value="4">Quarta-Feira</option>
+                        <option <%= subject.dayOfWeek == 5 ? 'selected' : ""%> value="5">Quinta-Feira</option>
+                        <option <%= subject.dayOfWeek == 6 ? 'selected' : ""%> value="6">Sexta-Feira</option>
+                        <option <%= subject.dayOfWeek == 7 ? 'selected' : ""%> value="7">Sábado</option>
+                    </select>
+
                     <div id="dica_url" class="form-text">Insira o dia da semana (1 a 7).</div>
                 </div>
                 <div class="mb-3">
                     <label for="time" class="form-label">Hora</label>
-                    <input type="text" class="form-control" id="time" name="time" value="<%= subject.time %>">
+                    
+                    <select class="form-control dropdown" name="time" id="time">
+                        <option <%= subject.time == '07:30:00' ? 'selected' : ""%> value="07:30:00">07:30</option>
+                        <option <%= subject.time == '09:20:00' ? 'selected' : ""%> value="09:20:00">09:20</option>
+                        <option <%= subject.time == '11:10:00' ? 'selected' : ""%> value="11:10:00">11:10</option>
+                        <option <%= subject.time == '19:20:00' ? 'selected' : ""%> value="19:20:00">19:20</option>
+                        <option <%= subject.time == '21:10:00' ? 'selected' : ""%> value="21:10:00">21:10</option>
+                    </select>
+
                     <div id="dica_url" class="form-text">Insira o horário de início da disciplina.</div>
                 </div>
                 <div class="mb-3">
                     <label for="drt_professor" class="form-label">Professor</label>
-                    <input type="text" class="form-control" id="drt_professor" name="drt_professor" value="<%= subject.drt_professor %>">
+                    
+                    <select class="form-control dropdown" name="drt_professor" id="drt_professor">
+                        <% professors.forEach((professor)=> { %>
+                        <option <%= professor.drt == subject.drt_professor ? 'selected' : ""%> value="<%= professor.drt %>"><%= professor.name %></option>
+                        <% }) %>
+                    </select>
+                    
                     <div id="dica_url" class="form-text">Insira o DRT do professor que ministra a disciplina.</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="id_classroom">Sala de Aula</label>
-                    <input type="text" class="form-control" id="id_classroom" name="id_classroom" value="<%= subject.id_classroom %>" />
+                    
+                    <select class="form-control dropdown" name="id_classroom" id="id_classroom">
+                        <% classrooms.forEach((classroom)=> { %>
+                        <option <%= classroom.id == subject.id_classroom ? 'selected' : ""%> value="<%= classroom.id %>"><%= classroom.number %> - Prédio <%= classroom.building %></option>
+                        <% }) %>
+                    </select>
+
                     <div id="dica_url" class="form-text">Insira o ID da Sala de aula.</div>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>

@@ -19,28 +19,54 @@
                 <div class="mb-3">
                     <label for="dayOfWeek" class="form-label">Dia da Semana</label>
 
-                    <input type="text" class="form-control" id="dayOfWeek" name="dayOfWeek">
+                    <select class="form-control dropdown" name="dayOfWeek" id="dayOfWeek">
+                        <option value="" selected disabled hidden>Selecione o dia da semana</option>
+                        <option value="1">Domingo</option>
+                        <option value="2">Segunda-Feira</option>
+                        <option value="3">Terça-Feira</option>
+                        <option value="4">Quarta-Feira</option>
+                        <option value="5">Quinta-Feira</option>
+                        <option value="6">Sexta-Feira</option>
+                        <option value="7">Sábado</option>
+                    </select>
 
                     <div id="dica_url" class="form-text">Insira o dia da semana (1 a 7).</div>
                 </div>
                 <div class="mb-3">
                     <label for="time" class="form-label">Hora</label>
 
-                    <input type="text" class="form-control" id="time" name="time">
+                    <select class="form-control dropdown" name="time" id="time">
+                        <option value="" selected disabled hidden>Selecione um horário</option>
+                        <option value="07:30:00">07:30</option>
+                        <option value="09:20:00">09:20</option>
+                        <option value="11:10:00">11:10</option>
+                        <option value="19:20:00">19:20</option>
+                        <option value="21:10:00">21:10</option>
+                    </select>
 
                     <div id="dica_url" class="form-text">Insira o horário de início da disciplina.</div>
                 </div>
                 <div class="mb-3">
                     <label for="drt_professor" class="form-label">Professor</label>
 
-                    <input type="text" class="form-control" id="drt_professor" name="drt_professor">
+                    <select class="form-control dropdown" name="drt_professor" id="drt_professor">
+                        <option value="" selected disabled hidden>Selecione um professor</option>
+                        <% professors.forEach((professor)=> { %>
+                        <option value="<%= professor.drt %>"><%= professor.name %></option>
+                        <% }) %>
+                    </select>
 
                     <div id="dica_url" class="form-text">Insira o DRT do professor.</div>
                 </div>
                 <div class="mb-3">
                     <label for="id_classroom" class="form-label">Sala de Aula</label>
 
-                    <input type="text" class="form-control" id="id_classroom" name="id_classroom">
+                    <select class="form-control dropdown" name="id_classroom" id="id_classroom">
+                        <option value="" selected disabled hidden>Selecione uma sala</option>
+                        <% classrooms.forEach((classroom)=> { %>
+                        <option value="<%= classroom.id %>"><%= classroom.number %> - Prédio <%= classroom.building %></option>
+                        <% }) %>
+                    </select>
 
                     <div id="dica_url" class="form-text">Insira o ID da sala de aula.</div>
                 </div>

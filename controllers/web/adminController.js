@@ -88,11 +88,17 @@ const adminUpdateProfessors = (req,res) => {
 const adminUpdateSubjects = (req,res) => {
   const id = req.params.id;
 
-  subjects.findByPk(id).then((result) => {
+  subjects.findByPk(id).then((result1) => {
+    classrooms.findAll().then((result2) => {
+      professors.findAll().then((result3) => {
       res.render("admin/subjects_edit", {
-        subject: result
+        subject: result1,
+        classrooms: result2,
+        professors: result3
       });
     });
+  });
+});
 }
 
 // CREATE CRUD

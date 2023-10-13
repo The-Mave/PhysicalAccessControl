@@ -15,15 +15,8 @@ const createAttendance = (req, res) => {
   time: date.now(),
   present: true,
   });
-  attendance.save((err) => {
-    if (err) {
-      res
-        .status(500)
-        .send({ message: `${err.message} - Falha ao cadastrar a presença do professor` });
-    } else {
-      res.redirect("/admin/attendances");
-    }
-  });
+  attendance.save()
+  res.redirect("/admin/attendances");
 };
 
 export default {

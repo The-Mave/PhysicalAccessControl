@@ -10,7 +10,7 @@ const readProfessors = (req, res) => {
 const readProfessorById = (req, res) => {
   const id = req.params.id;
 
-  professors.findById(id)
+  professors.findByPk(id)
   .exec((err, professors) => {
     if (err) {
       res
@@ -29,53 +29,30 @@ const createProfessor = (req, res) => {
   login: req.body.login,
   password: req.body.password,
   });
-  professor.save((err) => {
-    if (err) {
-      res
-        .status(500)
-        .send({ message: `${err.message} - Falha ao cadastrar o professor` });
-    } else {
-      res.redirect("/admin/professors");
-    }
-  });
+  professor.save()
+  res.redirect("/admin/professors");
 };
 
 const updateProfessor = (req, res) => {
-  const drt = req.params.drt;
-/*
-  professors.findByIdAndUpdate(drt, { $set: req.body }, (err) => {
-    if (!err) {
-      res.redirect("/admin/professors");
-    } else {
-      res.status(500).send({ message: err.message });
-    }
-  });*/
-
-  professors.find({ where: { drt: drt } })
-  .on('success', function (professor) {
-    // Check if record exists in db
-    if (professor) {
-      professor.update({ $set: req.body })
-      .success(function () {})
-      res.redirect("/admin/professors")
-    }
+  const drt = req.body.drt;
+  professors.findByPk(drt)
+  .then((professor) => {
+    professor.update({ 
+      name: req.body.name,
+      login: req.body.login,
+      password: req.body.password })
+    res.redirect("/admin/professors");    
   })
-
 };
 
 const deleteProfessor = (req, res) => {
-  const id = req.params.id;
-
-  professors.findByIdAndDelete(id, (err) => {
-    if (!err) {
-      res.redirect("/admin/professors");
-    } else {
-      res.status(500).send({ message: err.message });
-    }
-  });
-};
-
-
+  const drt = req.params.id;
+  professors.findByPk(drt)
+  .then((professor) => {
+    professor.destroy()
+    res.redirect("/admin/professors")
+    })
+  };
 
 export default {
   readProfessors,

@@ -27,41 +27,30 @@ const createClassroom = (req, res) => {
   building: req.body.building,
   qrcode: req.body.qrcode,
   });
-  classroom.save((err) => {
-    if (err) {
-      res
-        .status(500)
-        .send({ message: `${err.message} - Falha ao cadastrar a sala de aula` });
-    } else {
-      res.redirect("/admin/classrooms");
-    }
-  });
+  classroom.save()
+  res.redirect("/admin/classrooms");
 };
 
 const updateClassroom = (req, res) => {
-  const id = req.params.id;
-  req.body.administrador = Boolean(req.body.administrador);
-
-  classrooms.findByIdAndUpdate(id, { $set: req.body }, (err) => {
-    if (!err) {
-      res.redirect("/admin/classrooms");
-    } else {
-      res.status(500).send({ message: err.message });
-    }
-  });
+  const id = req.body.id;
+  classrooms.findByPk(id)
+  .then((classroom) => {
+    classroom.update({ 
+      number: req.body.number,
+      building: req.body.building,
+      qrcode: req.body.qrcode })
+    res.redirect("/admin/classrooms");    
+  })
 };
 
 const deleteClassroom = (req, res) => {
   const id = req.params.id;
-
-  classrooms.findByIdAndDelete(id, (err) => {
-    if (!err) {
-      res.redirect("/admin/classrooms");
-    } else {
-      res.status(500).send({ message: err.message });
-    }
-  });
-};
+  classrooms.findByPk(id)
+  .then((classroom) => {
+    classroom.destroy()
+    res.redirect("/admin/classrooms")
+    })
+  };
 
 
 

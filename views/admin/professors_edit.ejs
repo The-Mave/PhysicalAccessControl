@@ -19,18 +19,18 @@
         </div> 
         <form method="post" action="/professors/<%= professor.drt %>?_method=PUT">
             <div class="mb-3">
-              <label for="nome" class="form-label">DRT do Professor</label>
+              <label for="drt" class="form-label">DRT do Professor</label>
               <input type="text" class="form-control" id="drt" name="drt" value="<%= professor.drt %>">
               <div id="dica_nome" class="form-text">Insira o DRT do professor aqui.</div>
             </div>
             <div class="mb-3">
-                <label for="nome" class="form-label">Nome do Professor</label>
+                <label for="name" class="form-label">Nome do Professor</label>
                 <input type="text" class="form-control" id="name" name="name" value="<%= professor.name %>">
                 <div id="dica_nome" class="form-text">Insira o nome do professor aqui.</div>
             </div>
             <div class="mb-3">
-                <label for="nome" class="form-label">Login do Professor</label>
-                <input type="text" class="form-control" id="nome" name="name" value="<%= professor.login %>">
+                <label for="login" class="form-label">Login do Professor</label>
+                <input type="text" class="form-control" id="login" name="login" value="<%= professor.login %>">
                 <div id="dica_nome" class="form-text">Insira o e-mail do professor aqui.</div>
             </div>
             <div class="mb-3">

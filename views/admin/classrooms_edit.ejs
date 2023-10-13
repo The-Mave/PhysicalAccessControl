@@ -2,8 +2,23 @@
 <%- include('../_partial/_navbar_admin.ejs') %>
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Editor de Salas de Aula</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group me-2">
+    
+                    <form method="post" action="/classrooms/<%= classroom.id %>?_method=DELETE">
+                        <button type="submit" class="btn btn-outline-secondary">Excluir Sala de Aula</button>
+                    </form>
+                    <button type="button" class="btn btn-outline-secondary" onClick="history.go(-1)">Cancelar</button>
+    
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                    <span data-feather="calendar"></span>
+                    This week
+                </button>
+                </div>
         </div> 
             <form method="post" action="/classrooms/<%= classroom.id %>?_method=PUT">
+                <input type="hidden" id="id" name="id" value="<%= classroom.id %>">
                 <div class="mb-3">
                   <label for="number" class="form-label">Número da Sala</label>
                   <input type="text" class="form-control" id="number" name="number" value="<%= classroom.number %>">

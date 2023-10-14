@@ -33,7 +33,20 @@
                 <tr>
                 <td><%= subject.id %></td>
                 <td><%= subject.name %></td>
-                <td><%= subject.dayOfWeek %></td>
+
+                <td><%= (() => {
+                    switch (subject.dayOfWeek) {
+                      case 1: return 'Domingo';
+                      case 2: return 'Segunda-feira';
+                      case 3: return 'Terça-feira';
+                      case 4: return 'Quarta-feira';
+                      case 5: return 'Quinta-feira';
+                      case 6: return 'Sexta-feira';
+                      case 7: return 'Sábado';
+                      default: return 'Número inválido';
+                    }
+                  })() %></td>
+
                 <td><%= subject.time %></td>
                 <td><%= subject.drt_professor %></td>
                 <td><%= subject.id_classroom %></td>

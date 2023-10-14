@@ -2,6 +2,7 @@ import attendances from "../../models/attendance.js";
 import classrooms from "../../models/classroom.js";
 import professors from "../../models/professor.js";
 import subjects from "../../models/subject.js";
+import qrcode from "qrcode";
 
 const dashboard = (req,res) => {
   attendances.findAll()
@@ -36,14 +37,32 @@ const adminGetAttendances = (req, res) => {
   });
 };
 
-const adminGetClassrooms = (req, res) => {
-    classrooms.findAll()
-    .then((result) => {
-      res.render("admin/classrooms", {
-        classrooms: result,
-      });
+const adminGetClassrooms = async (req, res) => {
+  try {
+    const result = await classrooms.findAll();
+    const qrcodes = await Promise.all(
+      result.map((element) => {
+        return new Promise((resolve, reject) => {
+          qrcode.toDataURL(element.qrcode, (err, src) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(src);
+            }
+          });
+        });
+      })
+    );
+
+    res.render("admin/classrooms", {
+      classrooms: result,
+      qrcode: qrcodes
     });
-  };
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erro interno do servidor");
+  }
+};
 
 const adminGetProfessors = (req, res) => {
   professors.findAll()
@@ -121,6 +140,8 @@ const adminCreateSubjects = (req,res) => {
     })
   });
 };
+
+
 
 export default {
 dashboard,

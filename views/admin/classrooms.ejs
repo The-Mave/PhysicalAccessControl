@@ -26,12 +26,12 @@
                 </tr>
             </thead>
             <tbody>
-                <% classrooms.forEach((classroom)=> { %>
+                <% classrooms.forEach((classroom, index)=> { %>
                 <tr>
                 <td><%= classroom.id %></td>
                 <td><%= classroom.number %></td>
                 <td><%= classroom.building %></td>
-                <td><%= classroom.qrcode %></td>
+                <td><img src="<%= qrcode[index] %>"></td>
                 <td><a href="/admin/classrooms/edit/<%= classroom.id %>">Editar</a></td>          
                 </tr>
                 <% }) %>              

@@ -22,5 +22,6 @@ router
     .get("/admin/professors/create", adminController.adminCreateProfessors)
     .get("/admin/subjects/create", adminController.adminCreateSubjects)
 
+    .get("/admin/attendances/:drt", adminController.adminGetAttendancesByProfessor)
 
 export default router;

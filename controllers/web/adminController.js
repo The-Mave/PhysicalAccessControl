@@ -18,7 +18,25 @@ const dashboard = (req,res) => {
             attendances: result1,
             classrooms: result2,
             professors: result3,
-            subjects: result4
+            subjects: result4,
+            dayText: function(day) {switch(day){
+              case 1: return "Domingo";
+              case 2: return "Segunda-Feira";
+              case 3: return "Terça-Feira";
+              case 4: return "Quarta-Feira";
+              case 5: return "Quinta-Feira";
+              case 6: return "Sexta-Feira";
+              case 7: return "Sábado";
+            }},
+            nameOfSubject: function(attendance, subjects) {
+              let name="";
+              subjects.forEach((subject)=>{
+                if(subject.id == attendance.id_subject){
+                  name = subject.name;
+                }
+              })
+              return name;
+            }
             });
           });
         });
@@ -30,9 +48,23 @@ const dashboard = (req,res) => {
 
 const adminGetAttendances = (req, res) => {
   attendances.findAll()
-  .then((result) => {
-    res.render("admin/attendances", {
-      attendances: result,
+  .then((result1) => {
+    subjects.findAll()
+    .then((result2) => {
+      res.render("admin/attendances", {
+        attendances: result1,
+        subjects: result2,
+        nameOfSubject: function(attendance, subjects) {
+          let name="";
+          subjects.forEach((subject)=>{
+            if(subject.id == attendance.id_subject){
+              console.log(subject.name);
+              name = subject.name;
+            }
+          })
+          return name;
+        }
+      });
     });
   });
 };
@@ -141,7 +173,33 @@ const adminCreateSubjects = (req,res) => {
   });
 };
 
-
+const adminGetAttendancesByProfessor = (req, res) => {
+  const drt = req.params.drt;
+  attendances.findAll({where:{ drt_professor: drt}})
+  .then((result1) => {
+    professors.findByPk(drt)
+    .then((result2) => {
+      subjects.findAll({where:{ drt_professor: drt}})
+      .then((result3) => {
+      res.render("admin/attendancesReport", {
+        attendances: result1,
+        professor: result2,
+        subjects: result3,
+        wasPresent: function(attendance) {return attendance.present == 1},
+        nameOfSubject: function(attendance, subjects) {
+          let name="";
+          subjects.forEach((subject)=>{
+            if(subject.id == attendance.id_subject){
+              name = subject.name;
+            }
+          })
+          return name;
+        }
+        });
+      });
+    });
+  });
+};
 
 export default {
 dashboard,
@@ -154,5 +212,6 @@ adminUpdateProfessors,
 adminUpdateSubjects,
 adminCreateClassrooms,
 adminCreateProfessors,
-adminCreateSubjects
+adminCreateSubjects,
+adminGetAttendancesByProfessor
 };

@@ -21,6 +21,10 @@ const Attendance = db.define('attendance', {
     present: {
         type: Sequelize.BOOLEAN,
         allowNull: false
+    },
+    observation: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 })
 

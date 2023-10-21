@@ -1,7 +1,7 @@
 <%- include('../_partial/_header.ejs') %>
 <%- include('../_partial/_navbar_admin.ejs') %>
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Presenças</h1>
+            <h1 class="h2"><%= professor.name %></h1>
             <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group me-2">
                     <form class=" ml-5 d-flex search_tool">
@@ -19,7 +19,6 @@
                 <th scope="col">Data</th>
                 <th scope="col">Hora</th>
                 <th scope="col">Presente</th>
-                <th scope="col">Professor</th>
                 <th scope="col">Disciplina</th>
                 <th scope="col">Observação</th>
                 </tr>
@@ -31,15 +30,28 @@
                 <td><%= attendance.date %></td>
                 <td><%= attendance.time %></td>
                 <td><%= attendance.present %></td>
-                <td><%= attendance.drt_professor %></td>
                 <td><%= nameOfSubject(attendance, subjects) %></td>
-                <td><%= attendance.observation %></td>         
+                <td><%= attendance.observation %></td>
                 </tr>
                 <% }) %>              
             </tbody>
             </table>
         </div>
-        </main>
+
+        <div>
+            <%= 100 * attendances.filter(wasPresent).length/attendances.length %>% de presença
+        </div>
+        
+        <div>
+        </br>
+            <h3>Disciplinas ministradas</h3>
+        </div>
+
+        <% subjects.forEach((subject)=> { %>
+        <div><%= subject.name %></div>
+        <% }) %> 
+        
+    </main>
     </div>
     </div>
 

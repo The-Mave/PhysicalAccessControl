@@ -7,7 +7,7 @@
     <!-- Inclua os estilos do Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
+<body onLoad="obterLocalizacao()" class="bg-gray-100">
     <div class="min-h-screen flex items-center justify-center">
         <div class="bg-white p-8 rounded shadow-md w-96">
             <h1 class="text-2xl font-semibold mb-6">Registro de Presença</h1>
@@ -19,13 +19,13 @@
                 </div>
                 <!-- Campo para confirmar a geolocalização -->
                 <div class="mb-4">
-                    <label class="block text-gray-600 font-medium mb-2">Confirmar Geolocalização</label>
+                    <button onclick="obterLocalizacao()" class="w-full bg-gray-500 text-white py-1 px-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-gray-300"> Atualizar Geolocalização</button>
+                    <p>Localização:</p><div id="endereco"></div>
                     <div class="flex items-center space-x-2">
                         <input type="checkbox" id="geolocalizacao" name="geolocalizacao" class="w-5 h-5 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300">
                         <label for="geolocalizacao" class="text-gray-700">Confirmo a geolocalização</label>
-                        
-                        <div id="endereco"></div>
                     </div>
+
                 </div>
                 <!-- Botão para registrar presença -->
                 <div class="mt-6">
@@ -35,5 +35,29 @@
         </div>
     </div>
 </body>
+<script>
+    function obterLocalizacao() {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          const apiKey = '25596983f67c4dac89ba67acad5fd107';
+          const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
 
+          fetch(url)
+            .then(response => response.json())
+            .then(data => {
+              const endereco = data.results[0].formatted;
+              document.getElementById("endereco").textContent = "Endereço: " + endereco;
+            })
+            .catch(error => {
+              console.error("Erro ao obter endereço: " + error);
+            });
+        });
+      } else {
+        console.error("Geolocalização não suportada neste navegador.");
+      }
+    }
+
+</script>
 </html>

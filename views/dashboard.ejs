@@ -7,11 +7,11 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/f27ef1c8c0.js" crossorigin="anonymous"></script>
 </head>
-<body class="bg-gray-100">
+<body>
     <!-- Barra de navegação -->
-    <nav class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-300 p-2 flex justify-between items-center">
+    <nav class="fixed bottom-0 left-0 w-full px-10 flex justify-between items-center">
         <!-- Link do perfil -->
-        <a href="/perfil" class="text-gray-600 mx-4">
+        <a id="perfil" href="/perfil" class="text-gray-600 mx-4">
             <i class="fas fa-user"></i>
         </a>
         <!-- Histórico de check-ins -->
@@ -19,8 +19,8 @@
             <i class="fas fa-history"></i>
         </a>
         <!-- Botão central -->
-        <a href="/registro-presenca" class="bg-blue-500 text-white p-4 rounded-full shadow-md hover:bg-blue-600">
-            <i class="fas fa-check-circle text-2xl"></i>
+        <a id="qrcode" href="/registro-presenca" class="text-gray-600">
+            <i class="fas fa-qrcode text-2xl rounded-full text-gray-600 p-3 mb-5"></i>
         </a>
         <!-- Grade horário -->
         <a href="/grade-horario" class="text-gray-600 mx-4">
@@ -31,40 +31,94 @@
             <i class="fas fa-sign-out-alt"></i>
         </a>
     </nav>
+    
 
     <!-- Conteúdo da dashboard -->
     <div class="container mx-auto p-4 mt-16">
         <!-- Foto de perfil -->
-        <img src="/PhysicalAccessControl/img/professor.png" class="w-16 h-16 rounded-full mx-auto mb-4">
+        <img src="https://cdn.discordapp.com/attachments/825087058711937087/1168700678823231639/4851855-200.png" class="w-16 h-16 rounded-full mx-auto mb-4">
         <!-- Mensagem de boas-vindas -->
         <h1 class="text-2xl text-center font-semibold mb-2">Bem-vindo, <%= professor.name %></h1>
         <!-- Informações gerais sobre a presença -->
-        <div class="bg-white p-4 shadow-md rounded-lg">
-            <p class="text-lg">Informações sobre sua presença:</p>
-            <p>Percentual de Frequência: <%= 100 * attendances.filter(wasPresent).length/attendances.length %>%</p>
-            <p>Total de Check-ins: <%= attendances.length %></p>
-            <p>Últimos 10 Check-ins:</p>
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                <thead>
-                    <tr>
-                    <th scope="col">Data</th>
-                    <th scope="col">Hora</th>
-                    <th scope="col">Disciplina</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% attendances.forEach((attendance)=> { %>
-                    <tr>
-                    <td><%= attendance.date %></td>
-                    <td><%= attendance.time %></td>
-                    <td><%= nameOfSubject(attendance, subjects) %></td>
-                    </tr>
-                    <% }) %>              
-                </tbody>
-                </table>
+        <div  class="bg-white p-4 shadow-md rounded-lg">
+            <p id="informacoes" class="text-lg text-center">Informações sobre sua presença:</p>
+            <div class="border p-2 flex justify-center">
+                <div class="mx-4">
+                    <p class="p-4 w-full h-16 border text-center text-gray-600 pr-2">Percentual de Frequência:</p>
+                    <p class="p-4 h-16 border text-center text-black"><%= 100 * attendances.filter(wasPresent).length/attendances.length %> %</p>
+                </div>
+                <div>
+                    <p class="p-4 w-full h-16 border text-center text-gray-600 pr-2">Total de Check-ins:</p>
+                    <p class="p-4 h-16 border text-center text-black"><%= attendances.length %></p>
+                </div>
+            </div>
+            <p id="checkins" class="text-lg text-center">Check-ins Recentes</p>
+            <div id="tabela" class="mt-5 table-responsive rounded-lg">
+                <div class="overflow-x-auto">
+                    <table class="w-full table-fixed bg-white rounded-lg shadow-md">
+                        <thead id="headertabela" class="bg-red-500 text-white">
+                            <tr>
+                                <th class="w-1/4 p-3 text-center">Data</th>
+                                <th class="w-1/4 p-3 text-center">Hora</th>
+                                <th class="w-1/2 p-3 text-center">Disciplina</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% attendances.forEach((attendance) => { %>
+                            <tr>
+                                <td class="w-1/4 p-3 border-t border-gray-300 text-center"><%= attendance.date %></td>
+                                <td class="w-1/4 p-3 border-t border-gray-300 text-center"><%= attendance.time %></td>
+                                <td class="w-1/2 p-3 border-t border-gray-300 text-center"><%= nameOfSubject(attendance, subjects) %></td>
+                            </tr>
+                            <% }) %>              
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+        
     </div>
+    
 </body>
+<style>
+nav {
+    background-color: #ea0029;
+    box-shadow: #e4022c 0px 0px 20px 5px;
+}
+.fa-user, .fa-history, .fa-qrcode, .fa-calendar-alt, .fa-sign-out-alt{
+    color: white;
+}
+.fa-user:hover, .fa-history:hover, .fa-calendar-alt:hover, .fa-sign-out-alt:hover{
+    color: gray;
+}
+.fa-qrcode{
+    background-color: #e4022c;
+    border-width: 5px;
+    border-color: white;
+    margin-top: -100px;
+    box-shadow: #e4022c 0px 0px 20px 5px;
+}
+.fa-qrcode:hover{
+    background-color: #ff002f;
+}
+#informacoes{
+    background-color: #e4022c;
+    color: white;
+    font-weight: bold;
+     font-size: 20px;
+}
+
+#checkins{
+    background-color: #ea0029;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#headertabela{
+    background-color: #ea0029;
+}
+
+</style>
 </html>
+

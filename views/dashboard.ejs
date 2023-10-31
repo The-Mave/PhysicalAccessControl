@@ -37,19 +37,33 @@
         <!-- Foto de perfil -->
         <img src="/PhysicalAccessControl/img/professor.png" class="w-16 h-16 rounded-full mx-auto mb-4">
         <!-- Mensagem de boas-vindas -->
-        <h1 class="text-2xl text-center font-semibold mb-2">Bem-vindo, !Nome do Professor!</h1>
+        <h1 class="text-2xl text-center font-semibold mb-2">Bem-vindo, <%= professor.name %></h1>
         <!-- Informações gerais sobre a presença -->
         <div class="bg-white p-4 shadow-md rounded-lg">
             <p class="text-lg">Informações sobre sua presença:</p>
-            <p>Percentual de Frequência: 85%</p>
-            <p>Total de Check-ins: 123</p>
+            <p>Percentual de Frequência: <%= 100 * attendances.filter(wasPresent).length/attendances.length %>%</p>
+            <p>Total de Check-ins: <%= attendances.length %></p>
             <p>Últimos 10 Check-ins:</p>
-            <ul>
-                <li>Data 1</li>
-                <li>Data 2</li>
-                <li>Data 3</li>
-                <!-- Adicione os próximos check-ins aqui -->
-            </ul>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                    <th scope="col">Data</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Disciplina</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% attendances.forEach((attendance)=> { %>
+                    <tr>
+                    <td><%= attendance.date %></td>
+                    <td><%= attendance.time %></td>
+                    <td><%= nameOfSubject(attendance, subjects) %></td>
+                    </tr>
+                    <% }) %>              
+                </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>

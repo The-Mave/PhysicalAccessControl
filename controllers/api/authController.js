@@ -4,9 +4,8 @@ import jsonwebtoken from "jsonwebtoken";
 import { request } from "express";
 import professors from "../../models/professor.js";
 
-
-const jwt = jsonwebtoken
 const secret = 'palavracabalistica' 
+const jwt = jsonwebtoken
 
 const login = (req,res) => {
   console.log("\x1b[33m[WAIT]\x1b[0m Renderizando página de login...")
@@ -54,7 +53,9 @@ const checkToken = (req, res) => {
   } 
   
   try {
+    console.log("SUA SECRET",secret)
     jwt.verify(token, secret);
+    req.session.isAuthenticated = true;
     console.log("\x1b[33m[WAIT]\x1b[0m Verificando Cookie...")
     console.log("\x1b[32m[OK] ----------------------------------------------[ Autenticação Válida] -------------------------------------------------------------------------------------------\x1b[0m")
     console.log("\x1b[32m[OK]token: " + token + " \x1b[0m")
@@ -63,7 +64,7 @@ const checkToken = (req, res) => {
     console.log("\x1b[32m[OK] decodedToken: ", decodedToken , "\x1b[0m")
     console.log("\x1b[32m[OK]-----------------------------------------------------------------------------------------------------------------------------------------------------------------\x1b[0m ")
     
-    return true 
+    return true;
 
   } catch (err) {
     console.log(err)
@@ -113,6 +114,7 @@ const loginUser = async(req,res) => {
     }
 
     try {
+      
       const token = jwt.sign(
         {
           id: professor.drt, 
@@ -131,7 +133,7 @@ const loginUser = async(req,res) => {
 
     } catch (error) {
       res.status(500).json({ msg: error });
-      console.log('\x1b[31m[ERROR]\x1b[0m Token Sign-in Falhou' ,'\x1b[0m');
+      console.log('\x1b[31m[ERROR]\x1b[0m Token Sign-in Falhou' ,'\x1b[0m', error);
     }
   } catch (error) {
   res.status(500).json({ msg: error });
@@ -142,7 +144,7 @@ const loginUser = async(req,res) => {
 const logout = async(req,res) =>{
   console.log("\x1b[32m[OK]\x1b[0m Fazendo Logout...")
   res.clearCookie('authcookie');
-  res.redirect('/');
+  res.redirect('/login');
 }
 
 

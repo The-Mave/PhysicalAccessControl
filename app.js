@@ -5,6 +5,7 @@ import path from "path"
 import { fileURLToPath } from 'url'
 import methodOverride from 'method-override'
 import cookieParser from "cookie-parser";
+import session from "express-session";
 
 const app = express();
 
@@ -28,6 +29,12 @@ app.use(cookieParser())
 app.use(express.urlencoded({extended: true}));
 app.use(express.json())
 app.use(methodOverride('_method'));
+app.use(session({
+  secret: 'palavracabalistica',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false },
+}));
 
 try {
   console.log('\x1b[33m[WAIT]\x1b[0m Conectando com o banco de dados...');

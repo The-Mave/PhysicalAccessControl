@@ -4,6 +4,7 @@ import jsonwebtoken from "jsonwebtoken";
 import { request } from "express";
 import professors from "../../models/professor.js";
 
+
 const jwt = jsonwebtoken
 const secret = 'palavracabalistica' 
 
@@ -39,32 +40,36 @@ const perfilUser = async (req, res) => {
 };
 
 const checkToken = (req, res) => {
-
+  console.log("\x1b[33m[WAIT]\x1b[0m Buscando Cookie... CheckToken()")
   const authcookie = req.cookies.authcookie
-
-  console.log("----------------------------------")
-  console.log("------------CheckToken------------")
-  console.log("----------------------------------")
-  console.log("authcookie: " + authcookie)
+  if (authcookie){
+    console.log("\x1b[32m[OK]\x1b[0m Cookie encontrado: Existe um cookie no navegador")
+  }
 
   const token = authcookie
 
-  if (!token) return res.status(401).json({ msg: "Acesso negado!" });
+  if (!token) {
+    console.log("\x1b[31m[ERROR]\x1b[0m Não foi possível encontrar o Cookie")
+    return res.status(401).json({ msg: "Acesso negado!" });
+  } 
   
   try {
     jwt.verify(token, secret);
-    console.log("token: " + token)
-    console.log("secret: " + secret)
-    console.log('\x1b[32m\x1b[1m', '[X] Autenticação validada' ,'\x1b[0m');
+    console.log("\x1b[33m[WAIT]\x1b[0m Verificando Cookie...")
+    console.log("\x1b[32m[OK] ----------------------------------------------[ Autenticação Válida] -------------------------------------------------------------------------------------------\x1b[0m")
+    console.log("\x1b[32m[OK]token: " + token + " \x1b[0m")
+    console.log("\x1b[32m[OK] secret: " + secret + "\x1b[0m ")
     const decodedToken = jwt.decode(token);
-    console.log('decodedToken:',decodedToken);
-    return true
+    console.log("\x1b[32m[OK] decodedToken: ", decodedToken , "\x1b[0m")
+    console.log("\x1b[32m[OK]-----------------------------------------------------------------------------------------------------------------------------------------------------------------\x1b[0m ")
     
+    return true 
 
   } catch (err) {
     console.log(err)
-    console.log('\x1b[32m', 'Verificação de token Falhou' ,'\x1b[0m');
-    res.status(400).json({ msg: "O Token é inválido!" });
+    console.log("\x1b[31m[ERROR]\x1b[0m Verificação de token Falhou")
+    // res.status(400).json({ msg: "O Token é inválido!" });
+    res.redirect("/login")
   }
 }
 
@@ -119,9 +124,10 @@ const loginUser = async(req,res) => {
       res.cookie('authcookie',token) 
 
       // res.status(200).json({ msg: "Autenticação realizada com sucesso!", token });
-      res.redirect('/');
+     
       console.log("\x1b[32m[OK]\x1b[0m Login efetuado com sucesso...", "...Email: ",email)
       console.log("\x1b[32m[OK]\x1b[0m Token da sessão...", token)
+      res.redirect('/');
 
     } catch (error) {
       res.status(500).json({ msg: error });
@@ -134,13 +140,14 @@ const loginUser = async(req,res) => {
 }
 
 const logout = async(req,res) =>{
+  console.log("\x1b[32m[OK]\x1b[0m Fazendo Logout...")
   res.clearCookie('authcookie');
   res.redirect('/');
 }
 
 
 export default {
-  //registrarUser,
+  checkToken,
   registrar,
   login,
   loginUser,

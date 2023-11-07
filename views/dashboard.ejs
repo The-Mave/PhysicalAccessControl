@@ -15,17 +15,17 @@
             <i class="fas fa-user"></i>
         </a>
         <!-- Histórico de check-ins -->
-        <a href="/gerar-relatorios" class="text-gray-600 mx-4">
+        <!-- <a href="/gerar-relatorios" class="text-gray-600 mx-4">
             <i class="fas fa-history"></i>
-        </a>
+        </a> -->
         <!-- Botão central -->
         <a id="qrcode" href="/registro-presenca" class="text-gray-600">
             <i class="fas fa-qrcode text-2xl rounded-full text-gray-600 p-3 mb-5"></i>
         </a>
         <!-- Grade horário -->
-        <a href="/grade-horario" class="text-gray-600 mx-4">
+        <!-- <a href="/grade-horario" class="text-gray-600 mx-4">
             <i class="fas fa-calendar-alt"></i>
-        </a>
+        </a> -->
         <!-- Logout -->
         <a href="/logout" class="text-gray-600 mx-4">
             <i class="fas fa-sign-out-alt"></i>
@@ -41,7 +41,7 @@
         <h1 class="text-2xl text-center font-semibold mb-2">Bem-vindo, <%= professor.name %></h1>
         <!-- Informações gerais sobre a presença -->
         <div  class="bg-white p-4 shadow-md rounded-lg">
-            <p id="informacoes" class="p-2 text-lg text-center">Informações sobre sua presença:</p>
+            <p id="informacoes" class="p-2 text-lg text-center">Informações sobre presença:</p>
             <div class=" p-2 flex justify-center">
                 <div class="mx-4">
                     <p class="p-4 w-full h-16 border text-center text-gray-600 pr-2">Percentual de Frequência:</p>
@@ -50,6 +50,30 @@
                 <div>
                     <p class="p-4 w-full h-16 border text-center text-gray-600 pr-2">Total de Check-ins:</p>
                     <p class="p-4 h-16 border text-center text-black"><%= attendances.length %></p>
+                </div>
+            </div>
+
+            <p id="checkins" class="p-2 text-lg text-center">Minhas disciplinas</p>
+            <div id="tabela" class="mt-5 table-responsive">
+                <div class="overflow-x-auto">
+                    <table class="w-full table-fixed bg-white shadow-md">
+                        <thead id="headertabela" class="bg-red-500 text-white">
+                            <tr>
+                                <th class="w-1/4 p-3 text-center">Nome</th>
+                                <th class="w-1/4 p-3 text-center">Dia</th>
+                                <th class="w-1/2 p-3 text-center">Horário</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% subjects.forEach((subject) => { %>
+                            <tr>
+                                <td class="w-1/4 p-3 border-t border-gray-300 text-center"><%= subject.name %></td>
+                                <td class="w-1/4 p-3 border-t border-gray-300 text-center"><%= dayText(subject.dayOfWeek) %></td>
+                                <td class="w-1/2 p-3 border-t border-gray-300 text-center"><%= subject.time %></td>
+                            </tr>
+                            <% }) %>              
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <p id="checkins" class="p-2 text-lg text-center">Check-ins Recentes</p>

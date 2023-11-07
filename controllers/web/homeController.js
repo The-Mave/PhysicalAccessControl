@@ -2,13 +2,12 @@ import attendances from "../../models/attendance.js";
 import classrooms from "../../models/classroom.js";
 import professors from "../../models/professor.js";
 import subjects from "../../models/subject.js";
-import qrcode from "qrcode";
 
 import jsonwebtoken from "jsonwebtoken";
 const jwt = jsonwebtoken;
 
 const index = (req, res) => {
-  const drt = 1112345;
+  const drt = 1111164; // valor fixo provisório
 
   professors.findByPk(drt)
   .then((result1) => {
@@ -29,7 +28,16 @@ const index = (req, res) => {
             }
           })
           return name;
-        }
+        },
+        dayText: function(day) {switch(day){
+          case 1: return "Domingo";
+          case 2: return "Segunda-Feira";
+          case 3: return "Terça-Feira";
+          case 4: return "Quarta-Feira";
+          case 5: return "Quinta-Feira";
+          case 6: return "Sexta-Feira";
+          case 7: return "Sábado";
+        }}
         });
       });
     });

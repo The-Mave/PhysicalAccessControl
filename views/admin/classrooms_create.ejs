@@ -26,16 +26,34 @@
 
                 <div class="mb-3">
                     <label for="qrcode" class="form-label">QR Code</label>
-
-                    <input type="text" class="form-control" id="qrcode" name="qrcode">
-
-                    <div id="dica_email" class="form-text">Insira o código (provisório)</div>
+                    <input type="text" class="form-control" id="qrcode" name="qrcode" readonly>
+                    <button type="button" id="generateButton">Gerar código randômico</button>
                 </div>
                 <button type="submit" class="btn btn-outline-success">Criar</button>
             </form>
         </main>
     </div>
     </div>
+
+    <script>
+        //criei o método para gerar string randomico aqui. Ficou bagunçado, mas não pensei um lugar melhor
+        function generateRandomString(length) {
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+          
+            for (let i = 0; i < length; i++) {
+              const randomIndex = Math.floor(Math.random() * characters.length);
+              result += characters.charAt(randomIndex);
+            }
+          
+            return result;
+          }
+
+        document.getElementById('generateButton').addEventListener('click', async () => {
+          const result = await generateRandomString(64);
+          document.getElementById('qrcode').value = result;
+        });
+      </script>
 
 
 <%- include('../_partial/_footer_admin.ejs') %>

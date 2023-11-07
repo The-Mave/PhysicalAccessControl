@@ -4,8 +4,7 @@
             <h1 class="h2">Dashboard</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <button type="button" class="btn btn-outline-secondary">Salvar Relatório</button>
-                <button type="button" class="btn btn-outline-secondary">Exportar Relatório</button>
+                <button id="exportar" type="button" class="btn btn-outline-secondary">Exportar Relatório</button>
             </div>
             <!-- <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
                 <span data-feather="calendar"></span>
@@ -15,7 +14,7 @@
         </div> 
         <h1>PRESENÇA DOS PROFESSORES</h1>
         <div class="table-responsive">
-            <table class="table table-striped table-sm">
+        <table class="table table-striped table-sm">
             <thead>
                 <tr>
                 <th scope="col">#</th>
@@ -111,5 +110,30 @@
     </div>
     </div>
 
+    <script>
+        document.getElementById('exportar').addEventListener('click', function() {
+            var tables = document.querySelectorAll('table');
+            var csvData = [];
+
+            tables.forEach(function(table) {
+                var rows = table.getElementsByTagName('tr');
+                for (var i = 0; i < rows.length; i++) {
+                    var row = [];
+                    var cols = rows[i].getElementsByTagName('td');
+                    for (var j = 0; j < cols.length; j++) {
+                        row.push(cols[j].innerText);
+                    }
+                    csvData.push(row.join(','));
+                }
+            });
+
+            var csvContent = 'data:text/csv;charset=utf-8,' + csvData.join('\n');
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', 'dados.csv');
+            link.click();
+        });
+    </script>
 
 <%- include('../_partial/_footer_admin.ejs') %>

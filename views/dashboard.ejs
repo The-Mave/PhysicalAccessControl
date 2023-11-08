@@ -45,11 +45,11 @@
             <div class=" p-2 flex justify-center">
                 <div class="mx-4">
                     <p class="p-4 w-full h-16 border text-center text-gray-600 pr-2">Percentual de Frequência:</p>
-                    <p class="p-4 h-16 border text-center text-black"><%= 100 * attendances.filter(wasPresent).length/attendances.length %> %</p>
+                    <p class="p-4 h-16 border text-center text-black"><%= round(100 * attendances.filter(wasPresent).length/attendances.length) %> %</p>
                 </div>
                 <div>
                     <p class="p-4 w-full h-16 border text-center text-gray-600 pr-2">Total de Check-ins:</p>
-                    <p class="p-4 h-16 border text-center text-black"><%= attendances.length %></p>
+                    <p class="p-4 h-16 border text-center text-black"><%= attendances.length * attendances.filter(wasPresent).length/attendances.length %></p>
                 </div>
             </div>
 
@@ -102,8 +102,9 @@
         </div>
         
     </div>
-    
+
 </body>
+
 <style>
 nav {
     background-color: #ea0029;

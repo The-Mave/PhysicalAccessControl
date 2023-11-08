@@ -7,7 +7,7 @@ import jsonwebtoken from "jsonwebtoken";
 const jwt = jsonwebtoken;
 
 const index = (req, res) => {
-  const drt = 1111164; // valor fixo provisório
+  const drt = 1111134; // valor fixo provisório
 
   professors.findByPk(drt)
   .then((result1) => {
@@ -37,7 +37,12 @@ const index = (req, res) => {
           case 5: return "Quinta-Feira";
           case 6: return "Sexta-Feira";
           case 7: return "Sábado";
-        }}
+        }},
+        round: function(value) {
+          value = value *100;
+          value = Math.round(value)/100;
+          return value;
+        }
         });
       });
     });

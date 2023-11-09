@@ -11,15 +11,6 @@ const dashboard = (req,res) => {
     // constantes para o gráfico
     const present = result1.filter(function(attendance) {return attendance.present == 1}).length;
     const notPresent = result1.length - present;
-    const data = {
-      labels: ['Presente', 'Não presente'],
-      datasets: [
-        {
-          data: [present, notPresent], // Valores do gráfico
-          backgroundColor: ['blue', 'red'], // Cores das fatias
-        },
-      ],
-    };
 
     classrooms.findAll()
     .then((result2) => {
@@ -51,7 +42,13 @@ const dashboard = (req,res) => {
               })
               return name;
             },
-            data: data
+            present: present,
+            notPresent: notPresent,
+            round: function(value) {
+              value = value *100;
+              value = Math.round(value)/100;
+              return value;
+            }
             });
           });
         });

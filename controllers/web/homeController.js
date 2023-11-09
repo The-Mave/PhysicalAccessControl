@@ -17,7 +17,7 @@ const index = (req, res) => {
       .then((result3) => {
         res.render("dashboard", {
         professor: result1,
-        attendances: result2,
+        attendances: result2.reverse(),
         subjects: result3,
         wasPresent: function(attendance) {return attendance.present == 1},
         nameOfSubject: function(attendance, subjects) {

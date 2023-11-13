@@ -7,7 +7,12 @@ import jsonwebtoken from "jsonwebtoken";
 const jwt = jsonwebtoken;
 
 const index = (req, res) => {
-  const drt = 1111134; // valor fixo provisório
+  
+
+  const decodedToken = jwt.decode(req.cookies.authcookie);
+  console.log("\x1b[33m[WAIT]\x1b[0m Lendo informações do Token...")
+  console.log("\x1b[33m[INFO]\x1b[0m", "ID DO USUÁRIO: ", decodedToken.id)
+  const drt = decodedToken.id; // valor fixo provisório
 
   professors.findByPk(drt)
   .then((result1) => {

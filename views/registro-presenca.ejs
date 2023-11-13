@@ -6,35 +6,130 @@
     <title>Página de Registro de Presença</title>
     <!-- Inclua os estilos do Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f27ef1c8c0.js" crossorigin="anonymous"></script>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+
+
 </head>
 <body onLoad="obterLocalizacao()" class="bg-gray-100">
+      <!-- Barra de navegação -->
+      <nav class="fixed bottom-0 left-0 w-full px-10 flex justify-between items-center">
+        <!-- Link do perfil -->
+        <a id="perfil" href="/" class="text-gray-600 mx-4">
+            <i class="fas fa-user"></i>
+        </a>
+        <!-- Histórico de check-ins -->
+        <!-- <a href="/gerar-relatorios" class="text-gray-600 mx-4">
+            <i class="fas fa-history"></i>
+        </a> -->
+        <!-- Botão central -->
+        <a id="qrcode" href="/registro-presenca" class="text-gray-600">
+            <i class="fas fa-qrcode text-2xl rounded-full text-gray-600 p-3 mb-5"></i>
+        </a>
+        <!-- Grade horário -->
+        <!-- <a href="/grade-horario" class="text-gray-600 mx-4">
+            <i class="fas fa-calendar-alt"></i>
+        </a> -->
+        <!-- Logout -->
+        <a href="/logout" class="text-gray-600 mx-4">
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
+    </nav>
     <div class="min-h-screen flex items-center justify-center">
         <div class="bg-white p-8 rounded shadow-md w-96">
-            <h1 class="text-2xl font-semibold mb-6">Registro de Presença</h1>
+            <h1 class="text-2xl font-semibold mb-6 text-center">Registro de Presença</h1>
             <form action="/registrar-presenca" method="post">
                 <!-- Campo para escanear o QR Code -->
-                <div class="mb-4">
-                    <label for="qrcode" class="block text-gray-600 font-medium mb-2">Escanear QR Code</label>
-                    <input type="text" id="qrcode" name="qrcode" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300" required>
+                <label for="qrcode" class="block text-gray-600 font-medium mb-2">Escanear QR Code</label>
+                <br>
+                <video id="preview"></video>
+                <div class="flex items-center mb-4">
+                    <button onclick="lerQRCode()" id="lerQrCode" class="w-12 h-10 bg-gray-500 text-white py-1 px-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-gray-300"><i class="fa-solid fa-camera"></i></button>
+                    <p class="text-gray-600 font-medium mx-2">ou</p>
+                    <input type="text" placeholder="Insira o código manualmente" id="qrcode" name="qrcode" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300" required>
                 </div>
                 <!-- Campo para confirmar a geolocalização -->
                 <div class="mb-4">
-                    <button onclick="obterLocalizacao()" class="w-full bg-gray-500 text-white py-1 px-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-gray-300"> Atualizar Geolocalização</button>
-                    <p>Localização:</p><div id="endereco"></div>
-                    <div class="flex items-center space-x-2">
-                        <input type="checkbox" id="geolocalizacao" name="geolocalizacao" class="w-5 h-5 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300">
-                        <label for="geolocalizacao" class="text-gray-700">Confirmo a geolocalização</label>
+                    <p class="text-gray-600 font-medium ">Localização:</p><div id="endereco" class="text-gray-700"></div>
+                    <iframe 
+                    id="mapIframe"
+                    width="300" 
+                    height="170" 
+                    frameborder="0" 
+                    scrolling="no" 
+                    marginheight="0" 
+                    marginwidth="0" 
+                    
+                    src="https://maps.google.com/maps?q=0,0&hl=es&z=14&amp;output=embed"
+                   ></iframe> 
+                    <br>
+                    <input type="checkbox" id="geolocalizacao" name="geolocalizacao" class="w-3 h-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300">
+                    <label for="geolocalizacao" class="text-gray-700">Confirmo a geolocalização</label>
                     </div>
-
-                </div>
-                <!-- Botão para registrar presença -->
-                <div class="mt-6">
-                    <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300">Registrar Presença</button>
-                </div>
+                    <div class="flex items-center justify-center">
+                      <button onclick="obterLocalizacao()" class="w-12 h-10 bg-gray-500 text-white py-1 px-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-gray-300"><i class="fa-solid fa-arrows-rotate"></i></button>
+                      <button type="submit" id="botao_registrar" class="w-full h-10 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300">Registrar Presença</button>
+                    </div>
             </form>
         </div>
     </div>
 </body>
+
+
+<style>
+  #lerQrCode{
+    margin-right: 5px;
+  }
+
+  nav {
+      background-color: #ea0029;
+      box-shadow: #e4022c 0px 0px 20px 5px;
+  }
+  .fa-user, .fa-history, .fa-qrcode, .fa-calendar-alt, .fa-sign-out-alt{
+      color: white;
+  }
+  .fa-user:hover, .fa-history:hover, .fa-calendar-alt:hover, .fa-sign-out-alt:hover{
+      color: gray;
+  }
+  .fa-qrcode{
+      background-color: #e4022c;
+      border-width: 5px;
+      border-color: white;
+      margin-top: -100px;
+      box-shadow: #e4022c 0px 0px 20px 5px;
+  }
+  .fa-qrcode:hover{
+      background-color: #ff002f;
+  }
+  #informacoes{
+      background-color: #e4022c;
+      color: white;
+      font-weight: bold;
+       font-size: 20px;
+       height: 50px;
+  }
+  
+  #checkins{
+      background-color: #ea0029;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      height: 50px;
+  }
+  
+  #headertabela{
+      background-color: #525252;
+      border-top-left-radius: 20px;
+  }
+#botao_registrar{
+  margin-left: 5px;
+  background-color: #ea0029;
+}
+
+#endereco{
+  font-size: 12px;
+}
+</style> 
 <script>
     function obterLocalizacao() {
       if ("geolocation" in navigator) {
@@ -44,11 +139,17 @@
           const apiKey = '25596983f67c4dac89ba67acad5fd107';
           const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
 
+          const iframe = document.getElementById("mapIframe");
+          console.log(latitude,longitude)
+          const novaURL = `https://www.google.com/maps/embed/v1/place?key=AIzaSyAIAQUUUohJ5yG_QR6EZ5BjpTgRTNBwUGM&q=${latitude}+${longitude}&zoom=16`;
+          
+          iframe.src = novaURL;
+
           fetch(url)
             .then(response => response.json())
             .then(data => {
               const endereco = data.results[0].formatted;
-              document.getElementById("endereco").textContent = "Endereço: " + endereco;
+              document.getElementById("endereco").textContent = endereco;
             })
             .catch(error => {
               console.error("Erro ao obter endereço: " + error);
@@ -58,6 +159,28 @@
         console.error("Geolocalização não suportada neste navegador.");
       }
     }
+    function lerQRCode() {
+      const scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
 
+      scanner.addListener('scan', function (content) {
+        console.log(content);
+        document.getElementById('qrcode').value = content;
+        scanner.stop();
+      });
+
+      Instascan.Camera.getCameras()
+        .then(function (cameras) {
+          if (cameras.length > 0) {
+            scanner.start(cameras[0]);
+          } else {
+            console.error('Nenhuma câmera encontrada.');
+          }
+        })
+        .catch(function (error) {
+          console.error('Erro ao acessar a câmera: ' + error);
+        });
+    }
 </script>
+
+
 </html>

@@ -8,7 +8,7 @@ router.use(jsonParser);
 
 
 router
-    .get('/profile/:id', jsonParser, authController.perfilUser)
+    // .get('/profile/:id', jsonParser, authController.perfilUser)
     .get('/login', jsonParser, authController.login)
     .post('/login', jsonParser, authController.loginUser)
     .get('/register', jsonParser, authController.registrar)

@@ -50,7 +50,7 @@
           }
 
         document.getElementById('generateButton').addEventListener('click', async () => {
-          const result = await generateRandomString(64);
+          const result = await generateRandomString(8);
           document.getElementById('qrcode').value = result;
         });
       </script>

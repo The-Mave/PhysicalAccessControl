@@ -38,7 +38,7 @@ const perfilUser = async (req, res) => {
   }
 };
 
-const checkToken = (req, res) => {
+const checkToken = (req, res, next) => {
   console.log("\x1b[33m[WAIT]\x1b[0m Buscando Cookie... CheckToken()")
   const authcookie = req.cookies.authcookie
   if (authcookie){
@@ -64,7 +64,7 @@ const checkToken = (req, res) => {
     console.log("\x1b[32m[OK] decodedToken: ", decodedToken , "\x1b[0m")
     console.log("\x1b[32m[OK]-----------------------------------------------------------------------------------------------------------------------------------------------------------------\x1b[0m ")
     
-    return true;
+    next()
 
   } catch (err) {
     console.log(err)

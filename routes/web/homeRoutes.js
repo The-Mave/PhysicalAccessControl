@@ -5,9 +5,9 @@ import authController from "../../controllers/api/authController.js"
 const router = express.Router();
 
 router
-    .get("/", homeController.index)
-    .get("/perfil", homeController.perfil)
-    .get("/gerar-relatorio", homeController.gerarrelatorios)
-    .get("/registro-presenca", homeController.registropresenca)
+    .get("/", authController.checkToken, homeController.index)
+    // .get("/perfil", homeController.perfil)
+    // .get("/gerar-relatorio", homeController.gerarrelatorios)
+    .get("/registro-presenca",authController.checkToken, homeController.registropresenca)
 
 export default router;

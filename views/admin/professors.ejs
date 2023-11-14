@@ -28,7 +28,7 @@
                 <% professors.forEach((professor)=> { %>
                 <tr>
                 <td><%= professor.drt %></td>
-                <td><%= professor.name %></td>
+                <td><a href="/admin/attendances/<%= professor.drt %>"><%= professor.name %></a></td>
                 <td><%= professor.login %></td>
                 <td><a href="/admin/professors/edit/<%= professor.drt %>">Editar</a></td>
                 </tr>

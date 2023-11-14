@@ -39,7 +39,7 @@
         </div>
 
         <div>
-            <%= 100 * attendances.filter(wasPresent).length/attendances.length %>% de presença
+            <%= round(100 * attendances.filter(wasPresent).length/attendances.length) %>% de presença
         </div>
         
         <div>

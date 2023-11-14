@@ -12,7 +12,7 @@ const index = (req, res) => {
   const decodedToken = jwt.decode(req.cookies.authcookie);
   console.log("\x1b[33m[WAIT]\x1b[0m Lendo informações do Token...")
   console.log("\x1b[33m[INFO]\x1b[0m", "ID DO USUÁRIO: ", decodedToken.id)
-  const drt = decodedToken.id; // valor fixo provisório
+  const drt = decodedToken.id;
 
   professors.findByPk(drt)
   .then((result1) => {
@@ -61,7 +61,17 @@ const gerarrelatorios =(req,res) =>{
   res.render("gerar-relatorios");
 }
 const registropresenca =(req,res) =>{
-  res.render("registro-presenca");
+  const decodedToken = jwt.decode(req.cookies.authcookie);
+  const drt = decodedToken.id;
+  professors.findByPk(drt)
+  .then((result1) => {
+    subjects.findAll({where:{ drt_professor: drt}})
+    .then((result2) => {
+      res.render("registro-presenca", {
+        professor: result1,
+        subjects: result2});
+    })
+  })
 }
 
 export default {

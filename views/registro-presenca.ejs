@@ -38,15 +38,22 @@
     <div class="min-h-screen flex items-center justify-center">
         <div class="bg-white p-8 rounded shadow-md w-96">
             <h1 class="text-2xl font-semibold mb-6 text-center">Registro de Presença</h1>
-            <form action="/registrar-presenca" method="post">
+            <h2>Olá professor(a) <%= professor.name %>!</h2><!-- MAVE, CONSERTAR ESTILIZAÇÃO -->
+            <form action="/attendances" method="post">
                 <!-- Campo para escanear o QR Code -->
+                <select class="block text-gray-600 font-medium mb-2" name="id_subject" id="id_subject"><!-- MAVE, CONSERTAR ESTILIZAÇÃO -->
+                  <option value="" selected disabled hidden>Selecione a disciplina</option>
+                  <% subjects.forEach((subject)=> { %>
+                  <option value="<%= subject.id %>"><%= subject.name %></option>
+                  <% }) %>
+                </select>
                 <label for="qrcode" class="block text-gray-600 font-medium mb-2">Escanear QR Code</label>
                 <br>
                 <video id="preview"></video>
                 <div class="flex items-center mb-4">
                     <button onclick="lerQRCode()" id="lerQrCode" class="w-12 h-10 bg-gray-500 text-white py-1 px-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-gray-300"><i class="fa-solid fa-camera"></i></button>
                     <p class="text-gray-600 font-medium mx-2">ou</p>
-                    <input type="text" placeholder="Insira o código manualmente" id="qrcode" name="qrcode" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300" required>
+                    <input type="text" placeholder="Insira o código manualmente" id="qrcodeValidation" name="qrcodeValidation" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300" required>
                 </div>
                 <!-- Campo para confirmar a geolocalização -->
                 <div class="mb-4">

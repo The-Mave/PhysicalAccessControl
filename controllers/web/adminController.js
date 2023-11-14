@@ -206,6 +206,11 @@ const adminGetAttendancesByProfessor = (req, res) => {
             }
           })
           return name;
+        },
+        round: function(value) {
+          value = value *100;
+          value = Math.round(value)/100;
+          return value;
         }
         });
       });

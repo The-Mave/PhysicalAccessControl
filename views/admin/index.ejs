@@ -24,6 +24,8 @@
                 <th scope="col">Professor</th>
                 <th scope="col">Disciplina</th>
                 <th scope="col">Presença</th>
+                <th scope="col">Latitude</th>
+                <th scope="col">Longitude</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +37,8 @@
                 <td><%= attendance.drt_professor %></td>
                 <td><%= nameOfSubject(attendance, subjects) %></td>
                 <td><%= attendance.present %></td>
+                <td><%= attendance.latitude %></td>
+                <td><%= attendance.longitude %></td>
                 </tr>
                 <% }) %>
             </tbody>

@@ -40,6 +40,8 @@
             <h1 class="text-2xl font-semibold mb-6 text-center">Registro de Presença</h1>
             <h2>Olá professor(a) <%= professor.name %>!</h2><!-- MAVE, CONSERTAR ESTILIZAÇÃO -->
             <form action="/attendances" method="post">
+                <input style="display: none;" id="latitude" name="latitude"></input>
+                <input style="display: none;" id="longitude" name="longitude"></input>
                 <!-- Campo para escanear o QR Code -->
                 <select class="block text-gray-600 font-medium mb-2" name="id_subject" id="id_subject"><!-- MAVE, CONSERTAR ESTILIZAÇÃO -->
                   <option value="" selected disabled hidden>Selecione a disciplina</option>
@@ -143,6 +145,10 @@
         navigator.geolocation.getCurrentPosition(function (position) {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
+
+          document.getElementById("latitude").value = latitude;
+          document.getElementById("longitude").value = longitude;
+
           const apiKey = '25596983f67c4dac89ba67acad5fd107';
           const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
 

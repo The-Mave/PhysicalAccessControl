@@ -25,6 +25,14 @@ const Attendance = db.define('attendance', {
     observation: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    latitude: {
+        type: Sequelize.FLOAT,
+        allowNull: false
+    },
+    longitude: {
+        type: Sequelize.FLOAT,
+        allowNull: false
     }
 })
 

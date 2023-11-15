@@ -29,7 +29,7 @@ const createAttendance = (req, res) => {
   const f_hours = hours < 10 ? '0' + hours : hours;
   const f_minutes = minutes < 10 ? '0' + minutes : minutes;
   const f_seconds = seconds < 10 ? '0' + seconds : seconds;
-
+console.log(req.body.latitude);
   const f_time = f_hours + ":" + f_minutes + ":" + f_seconds;
   let attendance = new attendances({
   date: f_date,
@@ -37,7 +37,9 @@ const createAttendance = (req, res) => {
   present: true,
   drt_professor: drt,
   id_subject: req.body.id_subject,
-  observation: "Presente"
+  observation: "Presente",
+  latitude: req.body.latitude,
+  longitude: req.body.longitude
   });
 
   subjects.findByPk(req.body.id_subject).then((result1) => {

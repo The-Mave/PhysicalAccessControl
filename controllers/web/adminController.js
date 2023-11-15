@@ -70,7 +70,6 @@ const adminGetAttendances = (req, res) => {
           let name="";
           subjects.forEach((subject)=>{
             if(subject.id == attendance.id_subject){
-              console.log(subject.name);
               name = subject.name;
             }
           })

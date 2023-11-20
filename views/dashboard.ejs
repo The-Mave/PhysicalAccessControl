@@ -113,7 +113,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% attendances.forEach((attendance) => { %>
+                            <% attendances.filter(wasPresent).forEach((attendance) => { %>
                             <tr>
                                 <td class="w-1/4 p-3 border-t border-gray-300 text-center"><%= attendance.date %></td>
                                 <td class="w-1/4 p-3 border-t border-gray-300 text-center"><%= attendance.time %></td>

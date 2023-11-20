@@ -25,6 +25,7 @@ const index = (req, res) => {
         attendances: result2.reverse(),
         subjects: result3,
         wasPresent: function(attendance) {return attendance.present == 1},
+        wasNotPresent: function(attendance) {return attendance.observation == "Falta não justificada"},
         nameOfSubject: function(attendance, subjects) {
           let name="";
           subjects.forEach((subject)=>{
@@ -74,9 +75,25 @@ const registropresenca =(req,res) =>{
   })
 }
 
+const justificarFalta =(req,res) =>{
+  const decodedToken = jwt.decode(req.cookies.authcookie);
+  const drt = decodedToken.id;
+  const id = req.params.id;
+  professors.findByPk(drt)
+  .then((result1) => {
+    attendances.findByPk(id)
+    .then((result2) => {
+      res.render("justificativa", {
+        professor: result1,
+        attendance: result2});
+    })
+  })
+}
+
 export default {
   index,
   perfil,
   gerarrelatorios,
   registropresenca,
+  justificarFalta
 };

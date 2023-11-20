@@ -76,6 +76,31 @@
                     </table>
                 </div>
             </div>
+            <p id="checkins" class="p-2 text-lg text-center">Justifique as suas faltas</p>
+            <div id="tabela" class="mt-5 table-responsive">
+                <div class="overflow-x-auto">
+                    <table class="w-full table-fixed bg-white shadow-md">
+                        <thead id="headertabela" class="bg-red-500 text-white">
+                            <tr>
+                                <th class="w-1/4 p-3 text-center">Data</th>
+                                <th class="w-1/4 p-3 text-center">Hora</th>
+                                <th class="w-1/2 p-3 text-center">Disciplina</th>
+                                <th class="w-1/2 p-3 text-center">Justifique</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% attendances.filter(wasNotPresent).forEach((attendance) => { %>
+                            <tr>
+                                <td class="w-1/4 p-3 border-t border-gray-300 text-center"><%= attendance.date %></td>
+                                <td class="w-1/4 p-3 border-t border-gray-300 text-center"><%= attendance.time %></td>
+                                <td class="w-1/2 p-3 border-t border-gray-300 text-center"><%= nameOfSubject(attendance, subjects) %></td>
+                                <td class="w-1/4 p-3 border-t border-gray-300 text-center"><a href="/attendances/<%= attendance.id %>">Justifique</a></td>
+                            </tr>
+                            <% }) %>              
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <p id="checkins" class="p-2 text-lg text-center">Check-ins Recentes</p>
             <div id="tabela" class="mt-5 table-responsive">
                 <div class="overflow-x-auto">

@@ -88,9 +88,18 @@ const validateTime = (horaFornecida) => {
       return false; // Fora do intervalo de 30 minutos, retorna falso
   }
 }
-
+const updateAttendance = (req, res) => {
+  const id = req.params.id;
+  attendances.findByPk(id)
+  .then((attendance) => {
+    attendance.update({ 
+      observation: req.body.observation })
+    res.redirect("/");    
+  })
+};
 
 export default {
   readAttendances,
-  createAttendance
+  createAttendance,
+  updateAttendance
 };

@@ -9,5 +9,6 @@ router
     // .get("/perfil", homeController.perfil)
     // .get("/gerar-relatorio", homeController.gerarrelatorios)
     .get("/registro-presenca",authController.checkToken, homeController.registropresenca)
+    .get("/attendances/:id",authController.checkToken, homeController.justificarFalta)
 
 export default router;

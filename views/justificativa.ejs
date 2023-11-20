@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Justificativa de falta</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f27ef1c8c0.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Barra de navegação -->
+    <nav class="fixed bottom-0 left-0 w-full px-10 flex justify-between items-center">
+        <!-- Link do perfil -->
+        <a id="perfil" href="/" class="text-gray-600 mx-4">
+            <i class="fas fa-user"></i>
+        </a>
+        <!-- Histórico de check-ins -->
+        <!-- <a href="/gerar-relatorios" class="text-gray-600 mx-4">
+            <i class="fas fa-history"></i>
+        </a> -->
+        <!-- Botão central -->
+        <a id="qrcode" href="/registro-presenca" class="text-gray-600">
+            <i class="fas fa-qrcode text-2xl rounded-full text-gray-600 p-3 mb-5"></i>
+        </a>
+        <!-- Grade horário -->
+        <!-- <a href="/grade-horario" class="text-gray-600 mx-4">
+            <i class="fas fa-calendar-alt"></i>
+        </a> -->
+        <!-- Logout -->
+        <a href="/logout" class="text-gray-600 mx-4">
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
+    </nav>
+    
+
+    <!-- Conteúdo da dashboard -->
+    <div class="container mx-auto p-4 mt-16">
+        <!-- Foto de perfil -->
+        <img src="https://cdn.discordapp.com/attachments/825087058711937087/1168700678823231639/4851855-200.png" class="w-16 h-16 rounded-full mx-auto mb-4">
+        <!-- Mensagem de boas-vindas -->
+        <h1 class="text-2xl text-center font-semibold mb-2">Bem-vindo(a), <%= professor.name %></h1>
+        <!-- Informações gerais sobre a presença -->
+        <div  class="bg-white p-4 shadow-md rounded-lg">
+            <p id="checkins" class="p-2 text-lg text-center">Justificativa</p>
+            <form method="post" action="/attendances/<%= attendance.id %>?_method=PUT">
+                <div class="mb-3">
+                  <label for="drt" class="form-label">Justificativa</label>
+                  <input type="text" class="form-control" id="observation" name="observation">
+                  <div id="dica_nome" class="form-text">Informe o motivo da ausência.</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+        </div>
+        
+    </div>
+
+</body>
+
+<style>
+nav {
+    background-color: #ea0029;
+    box-shadow: #e4022c 0px 0px 20px 5px;
+}
+.fa-user, .fa-history, .fa-qrcode, .fa-calendar-alt, .fa-sign-out-alt{
+    color: white;
+}
+.fa-user:hover, .fa-history:hover, .fa-calendar-alt:hover, .fa-sign-out-alt:hover{
+    color: gray;
+}
+.fa-qrcode{
+    background-color: #e4022c;
+    border-width: 5px;
+    border-color: white;
+    margin-top: -100px;
+    box-shadow: #e4022c 0px 0px 20px 5px;
+}
+.fa-qrcode:hover{
+    background-color: #ff002f;
+}
+#informacoes{
+    background-color: #e4022c;
+    color: white;
+    font-weight: bold;
+     font-size: 20px;
+     height: 50px;
+}
+
+#checkins{
+    background-color: #ea0029;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    height: 50px;
+}
+
+#headertabela{
+    background-color: #525252;
+    border-top-left-radius: 20px;
+}
+
+</style>
+</html>
+
